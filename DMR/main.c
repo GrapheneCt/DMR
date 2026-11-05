@@ -31,7 +31,6 @@ int __module_start(SceSize args, const void * argp)
 	info.size = sizeof(tai_module_info_t);
 	taiGetModuleInfoForKernel(KERNEL_PID, "SceAppMgr", &info);
 
-	// Allow apps with any budget type (by default only mini budget apps are allowed)
 	switch (info.module_nid)
 	{
 	case 0x94CEFE4B: // 3.55
@@ -45,7 +44,8 @@ int __module_start(SceSize args, const void * argp)
 		return SCE_KERNEL_START_NO_RESIDENT;
 	}
 
-	taiInjectDataForKernel(KERNEL_PID, info.modid, 0, 0xF774, "\xbb\xb9", 2);
+	// Allow apps with any budget type (by default only mini budget apps are allowed)
+	taiInjectDataForKernel(KERNEL_PID, info.modid, 0, 0xF774, "\x17\xE0", 2);
 	taiHookFunctionImportForKernel(KERNEL_PID, &s_hookRef[1], "SceAppMgr", 0x9AD8E213, 0x0139FC20, sceSblACMgrIsWebCoreOrWebKitProcess_patched);
 
 	return SCE_KERNEL_START_SUCCESS;
