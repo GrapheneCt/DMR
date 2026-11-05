@@ -1,0 +1,6 @@
+Module: DMR major_version: 1 minor_version: 0
+module_attr: exclusive_load
+module_attr: exclusive_start
+sceModuleInfo_type: 6
+module_function: module_start localname: __module_start
+module_function: module_stop localname: __module_stop
